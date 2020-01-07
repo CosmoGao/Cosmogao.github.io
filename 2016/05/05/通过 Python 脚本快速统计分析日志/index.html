@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://yuhaogao.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="从朋友那里拿到一个需求，根据日志分析统计并发情况，统计自定义时间段的用户流量，具体需求如下：  晒选某个时间点的数据：查找某天下午1:30到2:30这个时间段或者自己定义，看看到底有多少 同时筛选出两个项目标号的文档，统计和去重统计17&#x2F;18  babyhealth:[2016-05-03 19:21:23] INFO orderinfo:472 - v41&#x2F;nbCode&#x2F;getauth||150">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过 Python 脚本快速统计分析日志">
+<meta property="og:url" content="https://yuhaogao.com/2016/05/05/%E9%80%9A%E8%BF%87%20Python%20%E8%84%9A%E6%9C%AC%E5%BF%AB%E9%80%9F%E7%BB%9F%E8%AE%A1%E5%88%86%E6%9E%90%E6%97%A5%E5%BF%97/index.html">
+<meta property="og:site_name" content="Gao Yuhao">
+<meta property="og:description" content="从朋友那里拿到一个需求，根据日志分析统计并发情况，统计自定义时间段的用户流量，具体需求如下：  晒选某个时间点的数据：查找某天下午1:30到2:30这个时间段或者自己定义，看看到底有多少 同时筛选出两个项目标号的文档，统计和去重统计17&#x2F;18  babyhealth:[2016-05-03 19:21:23] INFO orderinfo:472 - v41&#x2F;nbCode&#x2F;getauth||150">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-05-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2017-10-12T08:04:20.000Z">
+<meta property="article:author" content="高宇皓">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="日志">
+<meta property="article:tag" content="自动化">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://yuhaogao.com/2016/05/05/%E9%80%9A%E8%BF%87%20Python%20%E8%84%9A%E6%9C%AC%E5%BF%AB%E9%80%9F%E7%BB%9F%E8%AE%A1%E5%88%86%E6%9E%90%E6%97%A5%E5%BF%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>通过 Python 脚本快速统计分析日志 | Gao Yuhao</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Gao Yuhao</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Manners maketh man.</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/cosmogao" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuhaogao.com/2016/05/05/%E9%80%9A%E8%BF%87%20Python%20%E8%84%9A%E6%9C%AC%E5%BF%AB%E9%80%9F%E7%BB%9F%E8%AE%A1%E5%88%86%E6%9E%90%E6%97%A5%E5%BF%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="高宇皓">
+      <meta itemprop="description" content="流动性管理 | 财务数据分析 | 经济统计学">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gao Yuhao">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          通过 Python 脚本快速统计分析日志
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-05-05 00:00:00" itemprop="dateCreated datePublished" datetime="2016-05-05T00:00:00+08:00">2016-05-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2017-10-12 16:04:20" itemprop="dateModified" datetime="2017-10-12T16:04:20+08:00">2017-10-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/" itemprop="url" rel="index">
+                    <span itemprop="name">技术文档</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>从朋友那里拿到一个需求，根据日志分析统计并发情况，统计自定义时间段的用户流量，具体需求如下：</p>
+<ol>
+<li>晒选某个时间点的数据：查找某天下午1:30到2:30这个时间段或者自己定义，看看到底有多少</li>
+<li>同时筛选出两个项目标号的文档，统计和去重统计17/18 </li>
+<li>babyhealth:[2016-05-03 19:21:23] INFO orderinfo:472 - v41/nbCode/getauth||1508031:17</li>
+</ol>
+<p>上面第三行的内容就是日志的格式，简单分析了一下需求，shell 脚本、Excel  分列筛选透视、Python 都 可以解决，考虑到日志数量较大，通过 Excel 效率可能偏低，因此这里采用 Python 进行处理。</p>
+<a id="more"></a> 
+<p>处理的主要思路是：</p>
+<ul>
+<li>对日志文件内容进行分解。每条日志的关键信息有日期（2016-05-03）、时间（19:21:23）、值（1508031）、块（17），应用正则对日志进行逐行的匹配，提取关键信息，放到数据库中</li>
+<li>在数据库中通过SQL语句进行统计</li>
+</ul>
+<p>对于第一部分，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> sqlite3</span><br><span class="line"><span class="comment">#说明</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">u''</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">u'-----------------使用说明-----------------'</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">u'将脚本放入日志所在目录，运行脚本，输入日志\n文件名（含扩展名），将在相同目录生成log.db\n数据库'</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">u'------------------------------------------'</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">u''</span></span><br><span class="line"><span class="comment">#读取日志文件、连接数据库</span></span><br><span class="line">name = raw_input(<span class="string">'Please input the log name:'</span>)</span><br><span class="line">log_db = sqlite3.connect(<span class="string">'./log.db'</span>)</span><br><span class="line">cursor = log_db.cursor()</span><br><span class="line"><span class="comment">#建表</span></span><br><span class="line">cursor.execute(<span class="string">'DROP TABLE IF EXISTS log'</span>)</span><br><span class="line">cursor.execute(<span class="string">'CREATE TABLE log (front, log_date, log_time, log_path, value, level)'</span>)</span><br><span class="line"><span class="comment">#设定正则规则</span></span><br><span class="line">data_re = re.compile(<span class="string">r'正则规则不放了，会和代码编辑器冲突'</span>,re.S|re.M)</span><br><span class="line"><span class="comment">#读取日志文件</span></span><br><span class="line">log = open(<span class="string">'./%s'</span> %name)</span><br><span class="line">index = <span class="number">0</span></span><br><span class="line"><span class="comment">#进行转换</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> log:</span><br><span class="line">        found = data_re.findall(line)</span><br><span class="line">        <span class="keyword">if</span> found != <span class="literal">None</span> <span class="keyword">and</span> len(found) != <span class="number">0</span>:</span><br><span class="line">            index = index + <span class="number">1</span></span><br><span class="line">            cursor.execute(<span class="string">'INSERT INTO log (front, log_date, log_time, log_path, value, level) VALUES (?,?,?,?,?,?)'</span>, (found[<span class="number">0</span>][<span class="number">0</span>], found[<span class="number">0</span>][<span class="number">1</span>], found[<span class="number">0</span>][<span class="number">2</span>], found[<span class="number">0</span>][<span class="number">3</span>], found[<span class="number">0</span>][<span class="number">4</span>], found[<span class="number">0</span>][<span class="number">5</span>]))</span><br><span class="line">            <span class="keyword">if</span> index == <span class="number">100</span>:</span><br><span class="line">                log_db.commit()</span><br><span class="line">                <span class="comment">#print '100 records has been submitted.'</span></span><br><span class="line">    log_db.commit()</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'job done!'</span></span><br><span class="line">    input()</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>以上程序在 Linux 和 Windows 下都可以执行，生成 log.db 数据库， Linux 下可以直接使用 Sqlite3 对数据库进行操作， Windows 下可以安装 SQLite Expert 进行操作和查询，查询语句如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> <span class="keyword">log</span> <span class="keyword">WHERE</span> log_date = <span class="string">'2016-05-03'</span> <span class="keyword">and</span> log_time <span class="keyword">between</span> <span class="string">'13:30:00'</span> <span class="keyword">and</span> <span class="string">'14:30:00'</span>;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> <span class="keyword">log</span> <span class="keyword">WHERE</span> log_date = <span class="string">'2016-05-03'</span> <span class="keyword">and</span> log_time <span class="keyword">between</span> <span class="string">'13:30:00'</span> <span class="keyword">and</span> <span class="string">'14:30:00'</span> <span class="keyword">and</span> <span class="keyword">level</span> = <span class="string">'17'</span>;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> <span class="keyword">log</span> <span class="keyword">WHERE</span> log_date = <span class="string">'2016-05-03'</span> <span class="keyword">and</span> log_time <span class="keyword">between</span> <span class="string">'13:30:00'</span> <span class="keyword">and</span> <span class="string">'14:30:00'</span> <span class="keyword">and</span> <span class="keyword">level</span> = <span class="string">'18'</span>;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> <span class="keyword">value</span>)<span class="keyword">FROM</span> <span class="keyword">log</span> <span class="keyword">WHERE</span> log_date = <span class="string">'2016-05-03'</span> <span class="keyword">and</span> log_time <span class="keyword">between</span> <span class="string">'13:30:00'</span> <span class="keyword">and</span> <span class="string">'14:30:00'</span>;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> <span class="keyword">value</span>) <span class="keyword">FROM</span> <span class="keyword">log</span> <span class="keyword">WHERE</span> log_date = <span class="string">'2016-05-03'</span> <span class="keyword">and</span> log_time <span class="keyword">between</span> <span class="string">'13:30:00'</span> <span class="keyword">and</span> <span class="string">'14:30:00'</span> <span class="keyword">and</span> <span class="keyword">level</span> = <span class="string">'17'</span>;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> <span class="keyword">value</span>) <span class="keyword">FROM</span> <span class="keyword">log</span> <span class="keyword">WHERE</span> log_date = <span class="string">'2016-05-03'</span> <span class="keyword">and</span> log_time <span class="keyword">between</span> <span class="string">'13:30:00'</span> <span class="keyword">and</span> <span class="string">'14:30:00'</span> <span class="keyword">and</span> <span class="keyword">level</span> = <span class="string">'18'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>为了提高方便程度，可以用 Python 操作 SQLite3 进行查询：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> sqlite3</span><br><span class="line"></span><br><span class="line">date = raw_input(<span class="string">'Please input the date(eg.2016-05-03):'</span>)</span><br><span class="line">start_time = raw_input(<span class="string">'Please input the start time(eg.08:30:00):'</span>)</span><br><span class="line">end_time = raw_input(<span class="string">'Please input the end time(eg.09:30:00):'</span>)</span><br><span class="line">stat_db = sqlite3.connect(<span class="string">'./log.db'</span>)</span><br><span class="line">cursor = stat_db.cursor()</span><br><span class="line">cursor.execute(<span class="string">'SELECT COUNT(*) FROM log WHERE log_date = \'%s\' and log_time between \'%s\' and \'%s\''</span> %(date,start_time,end_time))</span><br><span class="line">amount_all = cursor.fetchall()[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">cursor.execute(<span class="string">'SELECT COUNT(DISTINCT value) FROM log WHERE log_date = \'%s\' and log_time between \'%s\' and \'%s\''</span> %(date,start_time,end_time))</span><br><span class="line">amount_na = cursor.fetchall()[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">cursor.execute(<span class="string">'SELECT COUNT(*)  FROM log WHERE log_date = \'%s\' and log_time between \'%s\' and \'%s\' and level = \'17\''</span> %(date,start_time,end_time))</span><br><span class="line">month_all = cursor.fetchall()[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">cursor.execute(<span class="string">'SELECT COUNT(DISTINCT value) FROM log WHERE log_date = \'%s\' and log_time between \'%s\' and \'%s\' and level = \'17\''</span> %(date,start_time,end_time))</span><br><span class="line">month_na = cursor.fetchall()[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">cursor.execute(<span class="string">'SELECT COUNT(*) FROM log WHERE log_date = \'%s\' and log_time between \'%s\' and \'%s\' and level = \'18\''</span> %(date,start_time,end_time))</span><br><span class="line">year_all = cursor.fetchall()[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">cursor.execute(<span class="string">'SELECT COUNT(DISTINCT value)  FROM log WHERE log_date = \'%s\' and log_time between \'%s\' and \'%s\' and level = \'18\''</span> %(date,start_time,end_time))</span><br><span class="line">year_na = cursor.fetchall()[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">print(<span class="string">u''</span>)</span><br><span class="line">print(<span class="string">u'------------统计------------'</span>)</span><br><span class="line">print(<span class="string">u'%s %s~%s\n----------------------------\n总点击次数/人:%s|%s\n年用户:%s|%s\n月用户:%s|%s'</span> % (date, start_time, end_time, amount_all, amount_na, year_all, year_na, month_all, month_na))</span><br><span class="line">print(<span class="string">u''</span>)</span><br><span class="line">input(<span class="string">'Press any key to exit...'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>以上程序均基于 Python 2.7+ 环境。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>都看到这儿了，还不打赏一下？</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="高宇皓 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="高宇皓 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>高宇皓
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yuhaogao.com/2016/05/05/%E9%80%9A%E8%BF%87%20Python%20%E8%84%9A%E6%9C%AC%E5%BF%AB%E9%80%9F%E7%BB%9F%E8%AE%A1%E5%88%86%E6%9E%90%E6%97%A5%E5%BF%97/" title="通过 Python 脚本快速统计分析日志">https://yuhaogao.com/2016/05/05/通过 Python 脚本快速统计分析日志/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/%E6%97%A5%E5%BF%97/" rel="tag"># 日志</a>
+              <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="tag"># 自动化</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/04/15/%E9%80%9A%E8%BF%87%20.htaccess%20%E6%96%87%E4%BB%B6%E5%B0%86%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E5%88%B0%E5%A4%9A%E4%B8%AA%E7%9B%AE%E5%BD%95/" rel="prev" title="通过 .htaccess 文件将域名解析到多个目录">
+      <i class="fa fa-chevron-left"></i> 通过 .htaccess 文件将域名解析到多个目录
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/05/23/Python%20%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C%20Excel%20%E6%96%87%E6%A1%A3/" rel="next" title="Python 读写操作 Excel 文档(xlrd/xlwt)">
+      Python 读写操作 Excel 文档(xlrd/xlwt) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="高宇皓"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">高宇皓</p>
+  <div class="site-description" itemprop="description">流动性管理 | 财务数据分析 | 经济统计学</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cosmogao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cosmogao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:me@yuhaogao.com" title="E-Mail → mailto:me@yuhaogao.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/gaoyuhao" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;gaoyuhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-thumbs-up"></i>知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.jianshu.com/users/db4a516eefb7/latest_articles" title="简书 → http:&#x2F;&#x2F;www.jianshu.com&#x2F;users&#x2F;db4a516eefb7&#x2F;latest_articles" rel="noopener" target="_blank"><i class="fa fa-fw fa-book"></i>简书</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tedxchangan.com/" title="https:&#x2F;&#x2F;tedxchangan.com" rel="noopener" target="_blank">TedxChangan</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">高宇皓</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

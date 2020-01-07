@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://yuhaogao.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="写给小小白的 Python 入门 - How to say Hello Python在学习 Python 的过程中，廖雪峰老师的教程带给了我非常大的帮助，我也向很多希望入门 Python 的朋友推荐了廖雪峰老师的教程，不过，对于某些编程基础较弱的同学而言，往往卡在某些最为基础的名词和操作上。因此本文针对入门者常常迷惑和不了解的知识进行一些通俗的说明和解释，希望能够起到帮助。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="写给小小白的 Python 入门 - How to say Hello Python">
+<meta property="og:url" content="https://yuhaogao.com/2017/11/28/%E5%86%99%E7%BB%99%E5%B0%8F%E5%B0%8F%E7%99%BD%E7%9A%84%20Python%20%E5%85%A5%E9%97%A8%20-%20How%20to%20say%20Hello%20Python/index.html">
+<meta property="og:site_name" content="Gao Yuhao">
+<meta property="og:description" content="写给小小白的 Python 入门 - How to say Hello Python在学习 Python 的过程中，廖雪峰老师的教程带给了我非常大的帮助，我也向很多希望入门 Python 的朋友推荐了廖雪峰老师的教程，不过，对于某些编程基础较弱的同学而言，往往卡在某些最为基础的名词和操作上。因此本文针对入门者常常迷惑和不了解的知识进行一些通俗的说明和解释，希望能够起到帮助。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-11-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2017-11-29T09:54:01.000Z">
+<meta property="article:author" content="高宇皓">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="入门">
+<meta property="article:tag" content="小白">
+<meta property="article:tag" content="Hello Python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://yuhaogao.com/2017/11/28/%E5%86%99%E7%BB%99%E5%B0%8F%E5%B0%8F%E7%99%BD%E7%9A%84%20Python%20%E5%85%A5%E9%97%A8%20-%20How%20to%20say%20Hello%20Python/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>写给小小白的 Python 入门 - How to say Hello Python | Gao Yuhao</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Gao Yuhao</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Manners maketh man.</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/cosmogao" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuhaogao.com/2017/11/28/%E5%86%99%E7%BB%99%E5%B0%8F%E5%B0%8F%E7%99%BD%E7%9A%84%20Python%20%E5%85%A5%E9%97%A8%20-%20How%20to%20say%20Hello%20Python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="高宇皓">
+      <meta itemprop="description" content="流动性管理 | 财务数据分析 | 经济统计学">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gao Yuhao">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          写给小小白的 Python 入门 - How to say Hello Python
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-28 00:00:00" itemprop="dateCreated datePublished" datetime="2017-11-28T00:00:00+08:00">2017-11-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2017-11-29 17:54:01" itemprop="dateModified" datetime="2017-11-29T17:54:01+08:00">2017-11-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/" itemprop="url" rel="index">
+                    <span itemprop="name">技术文档</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="写给小小白的-Python-入门-How-to-say-Hello-Python"><a href="#写给小小白的-Python-入门-How-to-say-Hello-Python" class="headerlink" title="写给小小白的 Python 入门 - How to say Hello Python"></a>写给小小白的 Python 入门 - How to say Hello Python</h1><p>在学习 Python 的过程中，廖雪峰老师的教程带给了我非常大的帮助，我也向很多希望入门 Python 的朋友推荐了<a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000" target="_blank" rel="noopener">廖雪峰</a>老师的教程，不过，对于某些编程基础较弱的同学而言，往往卡在某些最为基础的名词和操作上。因此本文针对入门者常常迷惑和不了解的知识进行一些通俗的说明和解释，希望能够起到帮助。</p>
+<a id="more"></a> 
+
+<h2 id="认识命令行（CLI，Command-Line-Interface）"><a href="#认识命令行（CLI，Command-Line-Interface）" class="headerlink" title="认识命令行（CLI，Command-Line Interface）"></a>认识命令行（CLI，<strong>C</strong>ommand-<strong>L</strong>ine <strong>I</strong>nterface）</h2><p>CLI 是指命令行界面，用户通过键入命令来操控计算机，与之相对应的是 GUI （Graphical User Interface），在 GUI 中，用户可以通过鼠标点击、拖动等操作操控电脑，对于普通用户而言比较简单易懂，因此，现在的主流操作系统，如 Microsoft Windows、Mac OS， 甚至大部分 Linux 发行版都提供了 GUI 操作界面。不过，不论是 Windows 还是 Mac OS，都保留了 CLI 的操作模式，如 Windows 中的 命令提示符（PowerShell），Mac OS 中的终端等。</p>
+<p>CLI 相比于 GUI，会占用更少的系统资源，同时，对于许多操作而言，通过指令输入，能够更方便的操控计算机，通过编写批处理脚本，可以快速完成多项操作，因此对于服务器而言，命令行是必不可少的操作方式之一。</p>
+<p>对于普通用户而言，掌握一些基本的命令行操作，也能在某些特定任务中，大幅提高工作效率，如批量重命名/删除特定类型文件等。命令行的相关操作在此不做展开。</p>
+<h2 id="命令提示符和-Python-交互模式"><a href="#命令提示符和-Python-交互模式" class="headerlink" title="命令提示符和 Python 交互模式"></a>命令提示符和 Python 交互模式</h2><p>上面提到 Windows 中就包含了 CLI 操作模式，在 Windows 操作系统中的开始菜单中，选择“命令提示符”或者“PowerShell”就可以进入到 Windows 系统的 CLI 操作模式了，在这两个终端中，可以通过输入命令来执行一些操作，比如移动文件(mv)、重命名(ren)、删除文件(delete/rm)等。在任何一台装有 Windows 操作系统的电脑上，都可以启动终端执行这些命令，无论你是不是安装了 Python 解释器。</p>
+<p>而如果你要执行 Python 命令的话，只是进入系统的终端是不行的，因为 Windows 的终端“听不懂”你对 Python 说出的指令，因此，需要进入 Python 的交互模式，才能够使用 Python 的命令，进入 Python 交互模式很简单，在 Windows 终端中输入“python”，你可以观察到，终端中由原来显示的路径变成了“&gt;&gt;&gt;”符号，这样就进入了 Python 的交互模式，在这里，只能执行 Python 命令，原来的系统命令就不再有效了，要退出 Python 交互模式，只需要输入“quit()”退出即可。</p>
+<p>了解了这些，你就可以在 Python 中输出传说中的“Hello World”了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先打开命令提示符或 Powershell，显示如下提示符（路径仅为示例，可能存在差异）：</span></span><br><span class="line"></span><br><span class="line">c:\Users\Yourname</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入“python”进入交互模式，显示如下：</span></span><br><span class="line"></span><br><span class="line">Python 3.5.3 (v3.5.3:1880cb95a742, Jan 16 2017, 16:02:32) [MSC v.1900 64 bit (AMD64)] on win32</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> or <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入命令，输出 Hello world（&gt;&gt;&gt;不需要输入，因此在命令中省略）：</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Hello World!'</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="py-和文本（代码）编辑器"><a href="#py-和文本（代码）编辑器" class="headerlink" title="*.py 和文本（代码）编辑器"></a>*.py 和文本（代码）编辑器</h2><p>看到这里，相信你已经能够执行 Python 命令了，但是，在交互中执行 Python 命令，执行的命令都是在内存中，这样，你写的指令就只能“一次性”运行，为了能够实现更加复杂的功能以及重复应用指令，形成一个应用程序，Python 程序的默认扩展名是“py”，在安装了 Python 解释器的电脑上，.py 的文件默认通过 Python 解释器执行。</p>
+<blockquote>
+<p>文件的扩展名，是操作系统标识文件格式的一种方式，通常用英文句号和文件名分隔。如今而言，扩展名主要的作用，是告诉操作系统，该用什么应用软件来打开/执行这个文件，如 .exe 为可执行文件，Windows 系统可以直接执行；.txt 为文本文件，默认使用文本编辑器打开；.doc 为 Word 文档，使用 Word 软件打开等。</p>
+</blockquote>
+<p>因此，你就可以将你的指令，写入到 .py 文件当中，在任何一台安装了 Python 解释器的电脑上，都可以通过这个文件，来实现你曾经写过的功能。在安装了 Python 解释器的 Windows 系统中，直接运行 *.py 文件，就会自动通过 Python 解释器来运行你的程序。当然，如果你的程序只是 print 之类的命令，程序执行之后可能只会看到命令提示符一闪而过，并不会看到结果，这是因为，print 命令执行结束后，程序已经运行完毕，命令提示符不会保持解释器输出的结果。另一种执行 py 文件的方式是通过命令提示符，这种方式能够在其中看到输出的结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打开命令提示符，输入如下命令切换到 py 程序所在的路径（以桌面为例）：</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> c:\Users\yourname\desktop</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用 Python 解释器运行你的程序（假设是 sayhello.py）：</span></span><br><span class="line"></span><br><span class="line">python sayhello.py</span><br></pre></td></tr></table></figure>
+
+<p><em>.py 格式的文件，直接用 Windows 自带的文本编辑器就可以编辑和查看，但是，严重*</em>不推荐**使用自带的文本编辑器进行编程活动，廖雪峰老师在教程中推荐了 Sublime 3 和 Notepad ++ 作为 Python 的编辑器，我这里再推荐一个微软出品的开源文本编辑器：<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">Visual Studio Code</a>，简称VSC。VSC 支持多种编程言和编码格式，对 Python 有着很好的支持，代码高亮、拼写检查、自动补全、格式化代码等功能，都有着良好的支持，还可以通过安装扩展，实现更多的功能。</p>
+<h2 id="集成开发环境（IDE-Integrated-Development-Environment）"><a href="#集成开发环境（IDE-Integrated-Development-Environment）" class="headerlink" title="集成开发环境（IDE, Integrated Development Environment）"></a>集成开发环境（IDE, <strong>I</strong>ntegrated <strong>D</strong>evelopment <strong>E</strong>nvironment）</h2><blockquote>
+<p>集成开发环境（Integrated Development Environment，简称IDE，也称为Integration Design Environment、Integration Debugging Environment）是一种辅助程序开发人员开发软件的应用软件，在开发工具内部就可以辅助编写源代码文本、并编译打包成为可用的程序，有些甚至可以设计图形接口。</p>
+</blockquote>
+<p>通俗来讲，IDE 可以看作把多种编程工具集成在一起，用来方便开发者进行编程工作，一般来说，IDE 集成了编辑器、调试器、解释器等多种工具，可以简化开发环境的配置、便于调试程序等。这些功能也使得编程火洞对入门者更加友好。</p>
+<p>对于 Python 而言，推荐使用 <a href="https://www.jetbrains.com/" target="_blank" rel="noopener">JetBrains</a> 出品的 <a href="https://www.jetbrains.com/pycharm/" target="_blank" rel="noopener">PyCharm</a>，一般而言，免费的社区版本已经能够满足大部分需要，如果你是在校学生，也可以尝试申请<a href="https://www.jetbrains.com/pycharm-edu/" target="_blank" rel="noopener">教育版</a>。</p>
+<p>除了 PyCharm 以外，<a href="https://github.com/spyder-ide/spyder" target="_blank" rel="noopener">Spyder</a> 也是一个不错的选择，Spyder 在 Anaconda，WinPython，Python(x,y)等发行包中都有集成，如果你安装的是原版的 Python 解释器，也可以通过 PyPi 的包管理工具进行安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打开命令提示符，使用 pip 工具安装 Spyder</span></span><br><span class="line"></span><br><span class="line">pip install spyder</span><br></pre></td></tr></table></figure>
+
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p><em>Enjoy learning Python!</em></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>都看到这儿了，还不打赏一下？</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="高宇皓 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="高宇皓 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>高宇皓
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yuhaogao.com/2017/11/28/%E5%86%99%E7%BB%99%E5%B0%8F%E5%B0%8F%E7%99%BD%E7%9A%84%20Python%20%E5%85%A5%E9%97%A8%20-%20How%20to%20say%20Hello%20Python/" title="写给小小白的 Python 入门 - How to say Hello Python">https://yuhaogao.com/2017/11/28/写给小小白的 Python 入门 - How to say Hello Python/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/%E5%85%A5%E9%97%A8/" rel="tag"># 入门</a>
+              <a href="/tags/%E5%B0%8F%E7%99%BD/" rel="tag"># 小白</a>
+              <a href="/tags/Hello-Python/" rel="tag"># Hello Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/02/04/%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BAturing-chat/" rel="prev" title="微信聊天机器人:turing-chat">
+      <i class="fa fa-chevron-left"></i> 微信聊天机器人:turing-chat
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/09/27/Python%20%E5%8A%A0%E6%8C%81%20Excel%EF%BC%8C%E8%BD%BB%E6%9D%BE%E5%A4%84%E7%90%86%E5%8D%81%E4%B8%87%E9%87%8F%E7%BA%A7%E6%95%B0%E6%8D%AE/" rel="next" title="Python 加持 Excel，轻松处理十万量级数据">
+      Python 加持 Excel，轻松处理十万量级数据 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写给小小白的-Python-入门-How-to-say-Hello-Python"><span class="nav-number">1.</span> <span class="nav-text">写给小小白的 Python 入门 - How to say Hello Python</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#认识命令行（CLI，Command-Line-Interface）"><span class="nav-number">1.1.</span> <span class="nav-text">认识命令行（CLI，Command-Line Interface）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令提示符和-Python-交互模式"><span class="nav-number">1.2.</span> <span class="nav-text">命令提示符和 Python 交互模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#py-和文本（代码）编辑器"><span class="nav-number">1.3.</span> <span class="nav-text">*.py 和文本（代码）编辑器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集成开发环境（IDE-Integrated-Development-Environment）"><span class="nav-number">1.4.</span> <span class="nav-text">集成开发环境（IDE, Integrated Development Environment）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">1.5.</span> <span class="nav-text">最后</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="高宇皓"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">高宇皓</p>
+  <div class="site-description" itemprop="description">流动性管理 | 财务数据分析 | 经济统计学</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cosmogao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cosmogao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:me@yuhaogao.com" title="E-Mail → mailto:me@yuhaogao.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/gaoyuhao" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;gaoyuhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-thumbs-up"></i>知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.jianshu.com/users/db4a516eefb7/latest_articles" title="简书 → http:&#x2F;&#x2F;www.jianshu.com&#x2F;users&#x2F;db4a516eefb7&#x2F;latest_articles" rel="noopener" target="_blank"><i class="fa fa-fw fa-book"></i>简书</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tedxchangan.com/" title="https:&#x2F;&#x2F;tedxchangan.com" rel="noopener" target="_blank">TedxChangan</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">高宇皓</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

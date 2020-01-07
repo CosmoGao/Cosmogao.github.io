@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://yuhaogao.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="准备工作1. 备份！备份！备份！2. 记录一些IP地址之类的信息">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系统安装及升级攻略">
+<meta property="og:url" content="https://yuhaogao.com/2016/06/30/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E5%8F%8A%E5%8D%87%E7%BA%A7%E6%94%BB%E7%95%A5/index.html">
+<meta property="og:site_name" content="Gao Yuhao">
+<meta property="og:description" content="准备工作1. 备份！备份！备份！2. 记录一些IP地址之类的信息">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-06-30T04:00:00.000Z">
+<meta property="article:modified_time" content="2017-10-12T08:04:21.000Z">
+<meta property="article:author" content="高宇皓">
+<meta property="article:tag" content="系统">
+<meta property="article:tag" content="安装">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="升级">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://yuhaogao.com/2016/06/30/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E5%8F%8A%E5%8D%87%E7%BA%A7%E6%94%BB%E7%95%A5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>系统安装及升级攻略 | Gao Yuhao</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Gao Yuhao</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Manners maketh man.</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/cosmogao" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuhaogao.com/2016/06/30/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E5%8F%8A%E5%8D%87%E7%BA%A7%E6%94%BB%E7%95%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="高宇皓">
+      <meta itemprop="description" content="流动性管理 | 财务数据分析 | 经济统计学">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gao Yuhao">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          系统安装及升级攻略
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-06-30 12:00:00" itemprop="dateCreated datePublished" datetime="2016-06-30T12:00:00+08:00">2016-06-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2017-10-12 16:04:21" itemprop="dateModified" datetime="2017-10-12T16:04:21+08:00">2017-10-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/" itemprop="url" rel="index">
+                    <span itemprop="name">技术文档</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="1-备份！备份！备份！"><a href="#1-备份！备份！备份！" class="headerlink" title="1. 备份！备份！备份！"></a>1. 备份！备份！备份！</h2><h2 id="2-记录一些IP地址之类的信息"><a href="#2-记录一些IP地址之类的信息" class="headerlink" title="2. 记录一些IP地址之类的信息"></a>2. 记录一些IP地址之类的信息</h2><a id="more"></a> 
+<h2 id="3-下载系统映象：MSDN镜像站"><a href="#3-下载系统映象：MSDN镜像站" class="headerlink" title="3. 下载系统映象：MSDN镜像站"></a>3. 下载系统映象：<a href="http://msdn.itellyou.cn" target="_blank" rel="noopener">MSDN镜像站</a></h2><ul>
+<li>4G及以上内存——选择64位(x64)操作系统<blockquote>
+<p>Windows 8.1 x64<br><a href="ed2k://|file|cn_windows_8.1_with_update_x64_dvd_6051473.iso|4504475648|D66BEF759548656EDA981D902A957545|/">cn_windows_8.1_with_update_x64_dvd_6051473.iso</a><br>SHA1    9A85EAC2D20446E3E086BF57A7DFC8832FB3BA56</p>
+<p>Windows 10 x64<br><a href="ed2k://|file|cn_windows_10_multiple_editions_version_1511_updated_apr_2016_x64_dvd_8712460.iso|4668538880|C24CABC107DAB4956A947BA336A10DD9|/">cn_windows_10_multiple_editions_version_1511_updated_apr_2016_x64_dvd_8712460.iso</a><br>SHA1    BBED33CC7BA79F94DF330F331BB76A610AD7C133</p>
+</blockquote>
+</li>
+<li>4G以下内存——选择32位(x86)操作系统<blockquote>
+<p>Windows 8.1 x86<br><a href="ed2k://|file|cn_windows_8.1_with_update_x86_dvd_6051523.iso|3349960704|C1B8A61BD8F1300825BF03C4D31B35A0|/">cn_windows_8.1_with_update_x86_dvd_6051523.iso</a><br>SHA1    ABBF814846C425C88910B011BC9D3D3C77932056</p>
+<p>Windows 10 x86<br><a href="ed2k://|file|cn_windows_10_multiple_editions_version_1511_updated_apr_2016_x86_dvd_8712808.iso|3540477952|9F5C03A7B60E8292FA50A80F5FE57D34|/">cn_windows_10_multiple_editions_version_1511_updated_apr_2016_x86_dvd_8712808.iso</a><br>SHA1    D070DEE253512267ED8F0F1039DBA121531725DA</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="4-写入系统映像"><a href="#4-写入系统映像" class="headerlink" title="4. 写入系统映像"></a>4. 写入系统映像</h2><ul>
+<li>教程  <a href="http://www.jb51.net/softjc/61771.html" target="_blank" rel="noopener">http://www.jb51.net/softjc/61771.html</a></li>
+<li>注意，这里只需要将 Windows 8.1 的映像写入到U盘中，Windows 10 的映像不需要写入！</li>
+</ul>
+<h1 id="安装-Windows-8-1"><a href="#安装-Windows-8-1" class="headerlink" title="安装 Windows 8.1"></a>安装 Windows 8.1</h1><h2 id="1-安装-Windows-8-1系统"><a href="#1-安装-Windows-8-1系统" class="headerlink" title="1. 安装 Windows 8.1系统"></a>1. 安装 Windows 8.1系统</h2><ul>
+<li>插入刚刚制作好的U盘</li>
+<li>再次检查备份是否完好</li>
+<li>重启计算机</li>
+<li>在出现启动画面时按F12进入引导选择界面，选择从U盘引导启动</li>
+<li>按照提示进行安装操作</li>
+</ul>
+<h2 id="2-激活-Windows-8-1"><a href="#2-激活-Windows-8-1" class="headerlink" title="2. 激活 Windows 8.1"></a>2. 激活 Windows 8.1</h2><ul>
+<li><p>下载下面的激活工具</p>
+<blockquote>
+<p><a href="http://pan.baidu.com/s/1sjNv5md" target="_blank" rel="noopener">HEU_KMS_Activator_v10.0.0.exe</a>   密码: rew8<br>SHA1    6334D3438186A114299F68EDBD819BF9DF1F2766 </p>
+</blockquote>
+</li>
+<li><p>使用组合键 Win+R 打开运行对话框，输入 slmgr.vbs -xpr 检查激活情况</p>
+</li>
+</ul>
+<h1 id="升级-Windows-10"><a href="#升级-Windows-10" class="headerlink" title="升级 Windows 10"></a>升级 Windows 10</h1><h2 id="1-升级-Windows-10-系统"><a href="#1-升级-Windows-10-系统" class="headerlink" title="1.  升级 Windows 10 系统"></a>1.  升级 Windows 10 系统</h2><ul>
+<li>双击打开之前下载的 Windows 10 镜像</li>
+<li>运行 Setup.exe 并按照提示操作</li>
+<li>可选不保留任何设置和文件</li>
+</ul>
+<h2 id="2-检查激活情况"><a href="#2-检查激活情况" class="headerlink" title="2. 检查激活情况"></a>2. 检查激活情况</h2><ul>
+<li>使用组合键 Win+R 打开运行对话框，输入 slmgr.vbs -xpr 检查激活情况</li>
+<li>一般已激活系统升级至 Windows 10 之后，会自动永久激活 </li>
+</ul>
+<h1 id="安装主要软件"><a href="#安装主要软件" class="headerlink" title="安装主要软件"></a>安装主要软件</h1><h2 id="1-Microsoft-Office"><a href="#1-Microsoft-Office" class="headerlink" title="1. Microsoft Office"></a>1. Microsoft Office</h2><ul>
+<li><p>Office 2013</p>
+<blockquote>
+<p>Office Pro Plus 2013 x64<br><a href="ed2k://|file|cn_office_professional_plus_2013_with_sp1_x64_dvd_3921920.iso|980258816|E18C9CF896D65B2778AA1A44C922C377|/">cn_office_professional_plus_2013_with_sp1_x64_dvd_3921920.iso</a><br>SHA1    5BC5AE6B03876E634FA6396749C59164C7767F9F</p>
+<p>Office Pro Plus 2013 x86<br><a href="ed2k://|file|cn_office_professional_plus_2013_with_sp1_x86_dvd_3921919.iso|858245120|EA50FF2DE78488DF2646D66FA791164A|/">cn_office_professional_plus_2013_with_sp1_x86_dvd_3921919.iso</a><br>SHA1    B34D6B805649A5C4ED35568D1A7F7A8496819FCD</p>
+</blockquote>
+</li>
+<li><p>Office 2016</p>
+<blockquote>
+<p>Office Pro Plus 2016 x86 &amp; x64<br><a href="ed2k://|file|cn_office_professional_plus_2016_x86_x64_dvd_6969182.iso|2588266496|27EEA4FE4BB13CD0ECCDFC24167F9E01|/">cn_office_professional_plus_2016_x86_x64_dvd_6969182.iso</a><br>SHA1    277926A41B472EE38CA0B36ED8F2696356DCC98F</p>
+</blockquote>
+</li>
+<li><p>根据需要选择安装2013或2016版 Office下载，2013版需要选择和系统位数一致的镜像下载安装。下载后双击打开镜像，运行 Setup.exe 安装，2016版默认安装32位版本，如果是64位系统，需要运行 /office/setup64.exe 安装64位版本</p>
+</li>
+<li><p>激活 Office 可用上面的 HEU_KMS_Activator 进行激活</p>
+</li>
+</ul>
+<h2 id="2-网络软件"><a href="#2-网络软件" class="headerlink" title="2. 网络软件"></a>2. 网络软件</h2><ul>
+<li><a href="http://dldir1.qq.com/qqfile/qq/QQ7.9Light/14308/QQ7.9Light.exe" target="_blank" rel="noopener">QQ轻聊版</a></li>
+<li><a href="http://dldir1.qq.com/weixin/Windows/WeChatSetup.exe" target="_blank" rel="noopener">微信PC版</a></li>
+<li><a href="http://down.sandai.net/thunderspeed/ThunderSpeed1.0.33.358.exe" target="_blank" rel="noopener">迅雷极速版</a></li>
+<li><a href="https://www.bing.com/search?q=chrome" target="_blank" rel="noopener">Chrome</a>|<a href="http://download.firefox.com.cn/releases-sha2/stub/official/zh-CN/Firefox-latest.exe" target="_blank" rel="noopener">火狐</a></li>
+</ul>
+<h2 id="3-办公软件"><a href="#3-办公软件" class="headerlink" title="3. 办公软件"></a>3. 办公软件</h2><ul>
+<li><a href="http://www.foxmail.com/win/download" target="_blank" rel="noopener">Foxmail</a>：邮箱管理</li>
+<li><a href="https://www.yinxiang.com/download/" target="_blank" rel="noopener">Evernote</a>：印象笔记</li>
+<li><a href="http://www.xmind.net/download/win/" target="_blank" rel="noopener">Xmind</a>：思维导图</li>
+<li><a href="https://notepad-plus-plus.org/repository/6.x/6.9.2/npp.6.9.2.Installer.exe" target="_blank" rel="noopener">Notepad++</a>：文本编辑器</li>
+<li><a href="http://www.foxitsoftware.cn/downloads/" target="_blank" rel="noopener">Foxit Reader</a>：PDF阅读器</li>
+</ul>
+<h2 id="4-其他未列名软件"><a href="#4-其他未列名软件" class="headerlink" title="4. 其他未列名软件"></a>4. 其他未列名软件</h2><ul>
+<li>建议使用 <a href="http://cn.bing.com/" target="_blank" rel="noopener">bing搜索</a>，到官网下载</li>
+<li>慎用百度搜索，谨慎对待百度搜索结果</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>都看到这儿了，还不打赏一下？</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="高宇皓 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="高宇皓 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>高宇皓
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yuhaogao.com/2016/06/30/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E5%8F%8A%E5%8D%87%E7%BA%A7%E6%94%BB%E7%95%A5/" title="系统安装及升级攻略">https://yuhaogao.com/2016/06/30/系统安装及升级攻略/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%B3%BB%E7%BB%9F/" rel="tag"># 系统</a>
+              <a href="/tags/%E5%AE%89%E8%A3%85/" rel="tag"># 安装</a>
+              <a href="/tags/Windows/" rel="tag"># Windows</a>
+              <a href="/tags/%E5%8D%87%E7%BA%A7/" rel="tag"># 升级</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/05/23/Python%20%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C%20Excel%20%E6%96%87%E6%A1%A3/" rel="prev" title="Python 读写操作 Excel 文档(xlrd/xlwt)">
+      <i class="fa fa-chevron-left"></i> Python 读写操作 Excel 文档(xlrd/xlwt)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/07/19/%E9%80%9A%E8%BF%87%20Python%20%E8%8E%B7%E5%8F%96%E6%91%84%E5%83%8F%E5%A4%B4%E6%95%B0%E6%8D%AE/" rel="next" title="通过 Python 获取摄像头数据">
+      通过 Python 获取摄像头数据 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-备份！备份！备份！"><span class="nav-number">1.1.</span> <span class="nav-text">1. 备份！备份！备份！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-记录一些IP地址之类的信息"><span class="nav-number">1.2.</span> <span class="nav-text">2. 记录一些IP地址之类的信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-下载系统映象：MSDN镜像站"><span class="nav-number">1.3.</span> <span class="nav-text">3. 下载系统映象：MSDN镜像站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-写入系统映像"><span class="nav-number">1.4.</span> <span class="nav-text">4. 写入系统映像</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-Windows-8-1"><span class="nav-number">2.</span> <span class="nav-text">安装 Windows 8.1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装-Windows-8-1系统"><span class="nav-number">2.1.</span> <span class="nav-text">1. 安装 Windows 8.1系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-激活-Windows-8-1"><span class="nav-number">2.2.</span> <span class="nav-text">2. 激活 Windows 8.1</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#升级-Windows-10"><span class="nav-number">3.</span> <span class="nav-text">升级 Windows 10</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-升级-Windows-10-系统"><span class="nav-number">3.1.</span> <span class="nav-text">1.  升级 Windows 10 系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-检查激活情况"><span class="nav-number">3.2.</span> <span class="nav-text">2. 检查激活情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装主要软件"><span class="nav-number">4.</span> <span class="nav-text">安装主要软件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Microsoft-Office"><span class="nav-number">4.1.</span> <span class="nav-text">1. Microsoft Office</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-网络软件"><span class="nav-number">4.2.</span> <span class="nav-text">2. 网络软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-办公软件"><span class="nav-number">4.3.</span> <span class="nav-text">3. 办公软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-其他未列名软件"><span class="nav-number">4.4.</span> <span class="nav-text">4. 其他未列名软件</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="高宇皓"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">高宇皓</p>
+  <div class="site-description" itemprop="description">流动性管理 | 财务数据分析 | 经济统计学</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cosmogao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cosmogao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:me@yuhaogao.com" title="E-Mail → mailto:me@yuhaogao.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/gaoyuhao" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;gaoyuhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-thumbs-up"></i>知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.jianshu.com/users/db4a516eefb7/latest_articles" title="简书 → http:&#x2F;&#x2F;www.jianshu.com&#x2F;users&#x2F;db4a516eefb7&#x2F;latest_articles" rel="noopener" target="_blank"><i class="fa fa-fw fa-book"></i>简书</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tedxchangan.com/" title="https:&#x2F;&#x2F;tedxchangan.com" rel="noopener" target="_blank">TedxChangan</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">高宇皓</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

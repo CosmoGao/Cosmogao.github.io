@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://yuhaogao.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="准备工作 1.需要的工具和文件 Windows 系统镜像文件 8G 以上容量的 U 盘 UltraISO 或其他制作启动 U 盘的工具 Windows 安装 DVD（可代替以上工具）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手把手教你安装系统">
+<meta property="og:url" content="https://yuhaogao.com/2016/12/09/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Gao Yuhao">
+<meta property="og:description" content="准备工作 1.需要的工具和文件 Windows 系统镜像文件 8G 以上容量的 U 盘 UltraISO 或其他制作启动 U 盘的工具 Windows 安装 DVD（可代替以上工具）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20161209_01.png">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20161209_02.png">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20161209_03.png">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20161209_04.png">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20161209_05.png">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20161209_06.png">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20161209_07.png">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20161209_08.png">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20161209_09.png">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20161209_10.png">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20161209_11.png">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20161209_12.png">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20161209_13.png">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20161209_14.png">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20161209_15.png">
+<meta property="article:published_time" content="2016-12-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2017-10-12T08:04:25.000Z">
+<meta property="article:author" content="高宇皓">
+<meta property="article:tag" content="系统">
+<meta property="article:tag" content="安装">
+<meta property="article:tag" content="Windows">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yuhaogao.com/uploads/image_20161209_01.png">
+
+<link rel="canonical" href="https://yuhaogao.com/2016/12/09/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>手把手教你安装系统 | Gao Yuhao</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Gao Yuhao</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Manners maketh man.</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/cosmogao" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuhaogao.com/2016/12/09/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="高宇皓">
+      <meta itemprop="description" content="流动性管理 | 财务数据分析 | 经济统计学">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gao Yuhao">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          手把手教你安装系统
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-09 00:00:00" itemprop="dateCreated datePublished" datetime="2016-12-09T00:00:00+08:00">2016-12-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2017-10-12 16:04:25" itemprop="dateModified" datetime="2017-10-12T16:04:25+08:00">2017-10-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/" itemprop="url" rel="index">
+                    <span itemprop="name">技术文档</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><hr>
+<h2 id="1-需要的工具和文件"><a href="#1-需要的工具和文件" class="headerlink" title="1.需要的工具和文件"></a>1.需要的工具和文件</h2><ul>
+<li>Windows 系统镜像文件</li>
+<li>8G 以上容量的 U 盘</li>
+<li>UltraISO 或其他制作启动 U 盘的工具</li>
+<li>Windows 安装 DVD（可代替以上工具）<a id="more"></a> 
+<h2 id="2-软件的选择和下载"><a href="#2-软件的选择和下载" class="headerlink" title="2.软件的选择和下载"></a>2.软件的选择和下载</h2></li>
+</ul>
+<h3 id="2-1-Windows-安装镜像"><a href="#2-1-Windows-安装镜像" class="headerlink" title="2.1 Windows 安装镜像"></a>2.1 Windows 安装镜像</h3><p>Windows 的下载镜像可以在<a href="http://msdn.itellyou.cn/" target="_blank" rel="noopener">MSDN，我告诉你</a>上得到。</p>
+<p>在 Windows 的选择上，首先需要确定你的内存（RAM）大小，内存在 4G 及以上的，建议安装 64 位操作系统，否则建议安装 32 位操作系统，Windows 10 镜像的下载链接如下：</p>
+<ul>
+<li>4G及以上内存——选择64位(x64)操作系统<blockquote>
+<p>Windows 10 x64<br><a href="ed2k://|file|cn_windows_10_multiple_editions_version_1607_updated_jul_2016_x64_dvd_9056935.iso|4347183104|35EA5DB0F3BB714F5CE0740FB89D82D1|/">cn_windows_10_multiple_editions_version_1607_updated_jul_2016_x64_dvd_9056935.iso</a><br>SHA1    A2DDAA7BE3BB73FD87C29D6EF8E1EDF4C764DCD9</p>
+</blockquote>
+</li>
+<li>4G以下内存——选择32位(x86)操作系统<blockquote>
+<p>Windows 10 x86<br><a href="ed2k://|file|cn_windows_10_multiple_editions_version_1607_updated_jul_2016_x86_dvd_9060050.iso|3275581440|006F76229DB61ADA1D8E49DD4A6A0A5D|/">cn_windows_10_multiple_editions_version_1607_updated_jul_2016_x86_dvd_9060050.iso</a><br>SHA1    EAF7394A25A69E94AD2D3D1D9FBC0007D1DFF720</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>SHA1(Secure Hash Algorithm) 用于检验镜像文件的一致性，通过检验 SHA1 值是否相符，可以判断镜像文件是否下载完整或被恶意修改等，<strong>不要</strong>使用 SHA1 校验不符的镜像文件，校验 SHA1 可以使用<a href="https://mega.nz/#!Yl8UFB6A!XOrK0C9H7_c36ieITQdD7CISq4gYw8a28cd-ud_Vm6Q" target="_blank" rel="noopener">这个</a>小工具。</p>
+</blockquote>
+<h3 id="2-2-UltraISO-或其他制作启动-U-盘的软件"><a href="#2-2-UltraISO-或其他制作启动-U-盘的软件" class="headerlink" title="2.2 UltraISO 或其他制作启动 U 盘的软件"></a>2.2 UltraISO 或其他制作启动 U 盘的软件</h3><p>UltraISO（软碟通）是一款强大的 ISO 文件管理工具，通过 UltraISO，可以简单方便的制作、编辑、转换光盘映像文件，这里主要用到它的制作硬盘映像的功能，用来制作可引导的系统安装 U 盘。</p>
+<blockquote>
+<p>下载 <a href="https://mega.nz/#!E8VzCCCY!6bB-HxClhAh8WHyVk6LJLEE3T8tCxx39tdv8Fz7scwk" target="_blank" rel="noopener">UltraISO</a></p>
+</blockquote>
+<p>此外，也可以使用其他工具来制作启动 U 盘，如 Win32 Disk Imager 等。</p>
+<h3 id="2-3-U-盘或-DVD"><a href="#2-3-U-盘或-DVD" class="headerlink" title="2.3 U 盘或 DVD"></a>2.3 U 盘或 DVD</h3><p>请准备一个 8G 及以上大小的 U盘，用于制作引导盘，需要注意的是，制作引导 U 盘会清空 U 盘内所有数据，需要提前做好备份工作。如果有刻录机和空白 DVD 刻录盘的话，也可以直接将系统镜像刻录到 DVD 光盘中，直接对系统进行引导。</p>
+<p>如果你的电脑附赠了 Windows 安装光盘的话，你可以直接省略上面的工作，用 Windows 光盘直接安装系统。</p>
+<p>下文将以最普遍的 U 盘安装为例，进行说明。</p>
+<h2 id="3-使用-UltraISO-制作启动-U-盘"><a href="#3-使用-UltraISO-制作启动-U-盘" class="headerlink" title="3.使用 UltraISO 制作启动 U 盘"></a>3.使用 UltraISO 制作启动 U 盘</h2><ul>
+<li><p>运行 UltraISO<br><img src="/uploads/image_20161209_01.png" alt="运行 UltraISO"></p>
+</li>
+<li><p>打开 Windows 镜像文件<br><img src="/uploads/image_20161209_02.png" alt="打开 Windows 镜像文件"></p>
+</li>
+<li><p>写入硬盘映像<br><img src="/uploads/image_20161209_03.png" alt="写入硬盘映像"></p>
+</li>
+<li><p>选择并写入 U 盘<br><img src="/uploads/image_20161209_04.png" alt="选择并写入 U 盘"></p>
+</li>
+<li><p>检查并确认 U 盘已经备份<br><img src="/uploads/image_20161209_05.png" alt="检查并确认 U 盘已经备份"></p>
+</li>
+</ul>
+<h2 id="4-备份"><a href="#4-备份" class="headerlink" title="4.备份"></a>4.备份</h2><p>准备工作中最重要的一部分就是备份！<br>准备工作中最重要的一部分就是备份！<br>准备工作中最重要的一部分就是备份！</p>
+<p>由于安装系统会清除 C 盘中的所有内容，因此，需要先对 C 盘内容进行备份，包括但不局限于桌面、我的文档等路径内的资料，以及静态 IP 等信息。</p>
+<h1 id="开始安装操作系统"><a href="#开始安装操作系统" class="headerlink" title="开始安装操作系统"></a>开始安装操作系统</h1><hr>
+<h2 id="1-安装-Windows"><a href="#1-安装-Windows" class="headerlink" title="1.安装 Windows"></a>1.安装 Windows</h2><ul>
+<li><p>插入刚刚制作的引导 U 盘，并重启计算机</p>
+</li>
+<li><p>在自检界面按 F12 键进入引导选择界面<br><img src="/uploads/image_20161209_06.png" alt="在自检界面按 F12 键进入引导选择界面"></p>
+</li>
+<li><p>选择从 U 盘引导启动<br><img src="/uploads/image_20161209_07.png" alt="选择从 U 盘引导启动"></p>
+</li>
+<li><p>选择语言并下一步<br><img src="/uploads/image_20161209_08.png" alt="选择语言并下一步"></p>
+</li>
+<li><p>现在安装<br><img src="/uploads/image_20161209_09.png" alt="现在安装"></p>
+</li>
+<li><p>输入产品密钥并下一步<br><img src="/uploads/image_20161209_10.png" alt="输入产品密钥并下一步"></p>
+</li>
+<li><p>接受许可条款并下一步<br><img src="/uploads/image_20161209_11.png" alt="接受许可条款并下一步"></p>
+</li>
+<li><p>选择“自定义”<br><img src="/uploads/image_20161209_12.png" alt="选择“自定义”"></p>
+</li>
+<li><p>新建并应用（如果现有盘符的话，需要先把现有的 C 盘及系统保留分区删除）<br><img src="/uploads/image_20161209_13.png" alt="新建并应用"></p>
+</li>
+<li><p>确定创建系统保留分区<br><img src="/uploads/image_20161209_14.png" alt="确定创建系统保留分区"></p>
+</li>
+<li><p>选择刚刚新建的分区并下一步<br><img src="/uploads/image_20161209_15.png" alt="选择刚刚新建的分区并下一步"></p>
+</li>
+</ul>
+<p>至此，系统安装工作已经基本完成，只需等待系统安装完成并重启之后，按照提示输入账户信息，即可进入新的操作系统。</p>
+<h2 id="2-激活-Windows"><a href="#2-激活-Windows" class="headerlink" title="2. 激活 Windows"></a>2. 激活 Windows</h2><ul>
+<li><p>下载下面的激活工具</p>
+<blockquote>
+<p><a href="https://mega.nz/#!J4VSwQpD!eY4u8g-emiFC969vWntEqfDbGI_U7y3tmLmyY6FSMg8" target="_blank" rel="noopener">microKMS_v16.09.10</a><br>SHA1    686DDD6B3F3B91C488641BD9B24B994A1929C25B </p>
+</blockquote>
+</li>
+<li><p>使用组合键 Win+R 打开运行对话框，输入 slmgr.vbs -xpr 检查激活情况</p>
+</li>
+</ul>
+<h1 id="安装主要软件"><a href="#安装主要软件" class="headerlink" title="安装主要软件"></a>安装主要软件</h1><hr>
+<h2 id="1-Microsoft-Office"><a href="#1-Microsoft-Office" class="headerlink" title="1. Microsoft Office"></a>1. Microsoft Office</h2><ul>
+<li><p>Office 2013</p>
+<blockquote>
+<p>Office Pro Plus 2013 x64<br><a href="ed2k://|file|cn_office_professional_plus_2013_with_sp1_x64_dvd_3921920.iso|980258816|E18C9CF896D65B2778AA1A44C922C377|/">cn_office_professional_plus_2013_with_sp1_x64_dvd_3921920.iso</a><br>SHA1    5BC5AE6B03876E634FA6396749C59164C7767F9F</p>
+<p>Office Pro Plus 2013 x86<br><a href="ed2k://|file|cn_office_professional_plus_2013_with_sp1_x86_dvd_3921919.iso|858245120|EA50FF2DE78488DF2646D66FA791164A|/">cn_office_professional_plus_2013_with_sp1_x86_dvd_3921919.iso</a><br>SHA1    B34D6B805649A5C4ED35568D1A7F7A8496819FCD</p>
+</blockquote>
+</li>
+<li><p>Office 2016</p>
+<blockquote>
+<p>Office Pro Plus 2016 x86 &amp; x64<br><a href="ed2k://|file|cn_office_professional_plus_2016_x86_x64_dvd_6969182.iso|2588266496|27EEA4FE4BB13CD0ECCDFC24167F9E01|/">cn_office_professional_plus_2016_x86_x64_dvd_6969182.iso</a><br>SHA1    277926A41B472EE38CA0B36ED8F2696356DCC98F</p>
+</blockquote>
+</li>
+<li><p>根据需要选择安装2013或2016版 Office下载，2013版需要选择和系统位数一致的镜像下载安装。下载后双击打开镜像，运行 Setup.exe 安装，2016版默认安装32位版本，如果是64位系统，需要运行 /office/setup64.exe 安装64位版本</p>
+</li>
+<li><p>激活 Office 可用上面的 microKMS_v16.09.10 进行激活</p>
+</li>
+</ul>
+<h2 id="2-网络软件"><a href="#2-网络软件" class="headerlink" title="2. 网络软件"></a>2. 网络软件</h2><ul>
+<li><a href="http://dldir1.qq.com/qqfile/qq/QQ7.9Light/14314/QQ7.9Light.exe" target="_blank" rel="noopener">QQ轻聊版</a></li>
+<li><a href="http://dldir1.qq.com/weixin/Windows/WeChatSetup.exe" target="_blank" rel="noopener">微信PC版</a></li>
+<li><a href="http://down.sandai.net/thunderspeed/ThunderSpeed1.0.33.358.exe" target="_blank" rel="noopener">迅雷极速版</a></li>
+<li><a href="https://www.bing.com/search?q=chrome" target="_blank" rel="noopener">Chrome</a>|<a href="http://download.firefox.com.cn/releases-sha2/stub/official/zh-CN/Firefox-latest.exe" target="_blank" rel="noopener">火狐</a></li>
+</ul>
+<h2 id="3-办公软件"><a href="#3-办公软件" class="headerlink" title="3. 办公软件"></a>3. 办公软件</h2><ul>
+<li><a href="http://www.foxmail.com/win/download" target="_blank" rel="noopener">Foxmail</a>：邮箱管理</li>
+<li><a href="https://www.yinxiang.com/download/" target="_blank" rel="noopener">Evernote</a>：印象笔记</li>
+<li><a href="http://www.xmind.net/download/win/" target="_blank" rel="noopener">Xmind</a>：思维导图</li>
+<li><a href="https://notepad-plus-plus.org/repository/7.x/7.2.2/npp.7.2.2.Installer.exe" target="_blank" rel="noopener">Notepad++</a>：文本编辑器</li>
+<li><a href="http://www.foxitsoftware.cn/downloads/" target="_blank" rel="noopener">Foxit Reader</a>：PDF阅读器</li>
+</ul>
+<h2 id="4-其他未列名软件"><a href="#4-其他未列名软件" class="headerlink" title="4. 其他未列名软件"></a>4. 其他未列名软件</h2><ul>
+<li>建议使用 <a href="http://cn.bing.com/" target="_blank" rel="noopener">bing搜索</a>，到官网下载</li>
+<li>慎用百度搜索，谨慎对待百度搜索结果</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>都看到这儿了，还不打赏一下？</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="高宇皓 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="高宇皓 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>高宇皓
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yuhaogao.com/2016/12/09/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F/" title="手把手教你安装系统">https://yuhaogao.com/2016/12/09/手把手教你安装系统/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%B3%BB%E7%BB%9F/" rel="tag"># 系统</a>
+              <a href="/tags/%E5%AE%89%E8%A3%85/" rel="tag"># 安装</a>
+              <a href="/tags/Windows/" rel="tag"># Windows</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/11/11/%E9%AB%98%E6%95%88%E5%88%86%E6%9E%90%E6%95%B0%E6%8D%AE%E4%BB%8E%E8%AE%BE%E8%AE%A1%E6%95%B0%E6%8D%AE%E6%BA%90%E5%BC%80%E5%A7%8B/" rel="prev" title="高效分析数据从设计数据源开始">
+      <i class="fa fa-chevron-left"></i> 高效分析数据从设计数据源开始
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/02/04/%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BAturing-chat/" rel="next" title="微信聊天机器人:turing-chat">
+      微信聊天机器人:turing-chat <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-需要的工具和文件"><span class="nav-number">1.1.</span> <span class="nav-text">1.需要的工具和文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-软件的选择和下载"><span class="nav-number">1.2.</span> <span class="nav-text">2.软件的选择和下载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Windows-安装镜像"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 Windows 安装镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-UltraISO-或其他制作启动-U-盘的软件"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 UltraISO 或其他制作启动 U 盘的软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-U-盘或-DVD"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 U 盘或 DVD</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-使用-UltraISO-制作启动-U-盘"><span class="nav-number">1.3.</span> <span class="nav-text">3.使用 UltraISO 制作启动 U 盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-备份"><span class="nav-number">1.4.</span> <span class="nav-text">4.备份</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开始安装操作系统"><span class="nav-number">2.</span> <span class="nav-text">开始安装操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装-Windows"><span class="nav-number">2.1.</span> <span class="nav-text">1.安装 Windows</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-激活-Windows"><span class="nav-number">2.2.</span> <span class="nav-text">2. 激活 Windows</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装主要软件"><span class="nav-number">3.</span> <span class="nav-text">安装主要软件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Microsoft-Office"><span class="nav-number">3.1.</span> <span class="nav-text">1. Microsoft Office</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-网络软件"><span class="nav-number">3.2.</span> <span class="nav-text">2. 网络软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-办公软件"><span class="nav-number">3.3.</span> <span class="nav-text">3. 办公软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-其他未列名软件"><span class="nav-number">3.4.</span> <span class="nav-text">4. 其他未列名软件</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="高宇皓"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">高宇皓</p>
+  <div class="site-description" itemprop="description">流动性管理 | 财务数据分析 | 经济统计学</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cosmogao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cosmogao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:me@yuhaogao.com" title="E-Mail → mailto:me@yuhaogao.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/gaoyuhao" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;gaoyuhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-thumbs-up"></i>知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.jianshu.com/users/db4a516eefb7/latest_articles" title="简书 → http:&#x2F;&#x2F;www.jianshu.com&#x2F;users&#x2F;db4a516eefb7&#x2F;latest_articles" rel="noopener" target="_blank"><i class="fa fa-fw fa-book"></i>简书</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tedxchangan.com/" title="https:&#x2F;&#x2F;tedxchangan.com" rel="noopener" target="_blank">TedxChangan</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">高宇皓</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

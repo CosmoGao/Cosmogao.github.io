@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://yuhaogao.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="引言如果经常使用 Excel 进行数据管理、分析的话，你一定遇到过以下几种情况：  输入好好的身份证号，一转眼后三位就变成了“000” 明明看起来是一样的日期，有的可以改变显示方式，有的改不了 数字单元格，莫名其妙出现了小三角，求和的时候，结果对不上 ……  这些问题，都是不了解 Excel 数据类型导致的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Excel 中的数据类型">
+<meta property="og:url" content="https://yuhaogao.com/2016/08/24/Excel%20%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Gao Yuhao">
+<meta property="og:description" content="引言如果经常使用 Excel 进行数据管理、分析的话，你一定遇到过以下几种情况：  输入好好的身份证号，一转眼后三位就变成了“000” 明明看起来是一样的日期，有的可以改变显示方式，有的改不了 数字单元格，莫名其妙出现了小三角，求和的时候，结果对不上 ……  这些问题，都是不了解 Excel 数据类型导致的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yuhaogao.com/uploads/image_20160824.png">
+<meta property="article:published_time" content="2016-08-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2017-10-12T08:04:29.000Z">
+<meta property="article:author" content="高宇皓">
+<meta property="article:tag" content="数据类型">
+<meta property="article:tag" content="Excel">
+<meta property="article:tag" content="科普">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yuhaogao.com/uploads/image_20160824.png">
+
+<link rel="canonical" href="https://yuhaogao.com/2016/08/24/Excel%20%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Excel 中的数据类型 | Gao Yuhao</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Gao Yuhao</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Manners maketh man.</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/cosmogao" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuhaogao.com/2016/08/24/Excel%20%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="高宇皓">
+      <meta itemprop="description" content="流动性管理 | 财务数据分析 | 经济统计学">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gao Yuhao">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Excel 中的数据类型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-08-24 00:00:00" itemprop="dateCreated datePublished" datetime="2016-08-24T00:00:00+08:00">2016-08-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2017-10-12 16:04:29" itemprop="dateModified" datetime="2017-10-12T16:04:29+08:00">2017-10-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/" itemprop="url" rel="index">
+                    <span itemprop="name">技术文档</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>如果经常使用 Excel 进行数据管理、分析的话，你一定遇到过以下几种情况：</p>
+<ul>
+<li>输入好好的身份证号，一转眼后三位就变成了“000”</li>
+<li>明明看起来是一样的日期，有的可以改变显示方式，有的改不了</li>
+<li>数字单元格，莫名其妙出现了小三角，求和的时候，结果对不上</li>
+<li>……</li>
+</ul>
+<p>这些问题，都是不了解 Excel 数据类型导致的。</p>
+<a id="more"></a> 
+<h2 id="什么是数据类型"><a href="#什么是数据类型" class="headerlink" title="什么是数据类型"></a>什么是数据类型</h2><blockquote>
+<p>In computer science and computer programming, a <strong>date type</strong> or simply <strong>type</strong> is a classification identifying one of various types of data, such as real, integer or Boolean, that determines the possible values for that type, the operations that can be done on values of that type, the meaning of the data, and the way values of that type can be stored.<br>在计算机科学和计算机程序中，用于标记某一类型数据属性的分类，称为数据类型，简称类型，常见的数据类型有 real、integer 或 Boolean 等，数据类型决定了值的可能性、可以对值进行的操作、值的意义和值储存的方式。<br>——维基百科</p>
+</blockquote>
+<p>通俗的讲，数据类型限制了值的可能性，如“年龄”只允许输入整数（int），“价格”只能输入数字（float），这就是通过数据类型约束了数据的格式和内容，在储存和计算中也具有更高的效率。</p>
+<h2 id="Excel-中有哪些数据类型"><a href="#Excel-中有哪些数据类型" class="headerlink" title="Excel 中有哪些数据类型"></a>Excel 中有哪些数据类型</h2><p>Excel 中的单元个格式中，提供了常规、数值、货币、会计等十余种显示格式，而实际上的数据格式，比较常用的有五种，Variant(可变型)、String(字符串)、Integer(整型) 、Float（浮点型）和 Boolean(布尔型)</p>
+<p><img src="/uploads/image_20160824.png" alt="Excel 中的数据格式"></p>
+<p>如上图所示，单元格格式默认为“常规”，此时的数据类型即为可变型，单元格将根据输入的内容，自动作为文本或数值进行输出；单元格格式设置为“文本”，那么数据类型将以字符串的形式进行储存；而当单元格格式为“数值”、“日期/时间”、“会计专用/货币”等格式时，数据将以数值的形式进行存储。</p>
+<ul>
+<li>文本<blockquote>
+<p>一个 Unicode 字符数据字符串。可以是字符串，或是以文本格式表示的数字或日期。<br>最大字符串长度为 268,435,456 个 Unicode 字符（2 亿 5 千 6 百万个字符）或 536,870,912 字节。</p>
+</blockquote>
+</li>
+</ul>
+<p>文本格式可以使用文本函数进行操作，但是以文本格式表示的数字或日期不能比较大小或者参与运算。</p>
+<ul>
+<li><p>数值</p>
+<ul>
+<li><p>整数</p>
+<blockquote>
+<p>没有小数位的数字。整数可以是正数或负数，但必须是介于 -9,223,372,036,854,775,808 (-2^63) 和 9,223,372,036,854,775,807 (2^63-1) 之间的整数。</p>
+</blockquote>
+</li>
+<li><p>小数</p>
+<blockquote>
+<p>实数是可以具有小数位的数字。实数涵盖的值范围很广：从 -1.79E +308 到 -2.23E -308 的负值、零、从 2.23E -308 到 1.79E + 308 的正值。但是，有效位数限制为 15 个小数位。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>数值格式可以使用数学、统计函数进行运算，需要注意的是，数值格式最多支持 15 位有效数字，因此，在输入 18 位身份证号码的时候，后三位的精度会丢失，变成 000。</p>
+<ul>
+<li>日期/时间<blockquote>
+<p>采用接受的日期-时间表示形式的日期和时间。<br>有效值是 1900 年 1 月 1 日后的所有日期。</p>
+</blockquote>
+</li>
+</ul>
+<p>事实上，Excel 中的日期/时间也是以数值形式保存的，按下 Ctrl+Shift+~ 可以看到日期/时间实际储存的值。Excel 中，以 1900 年 1 月 1 日 0:00:00 作为 1，之后的每过 1 天，在数值上加 1，每小时为 1/24，依次类推。</p>
+<ul>
+<li>布尔值<blockquote>
+<p>True 或  False 值。</p>
+</blockquote>
+</li>
+</ul>
+<p>布尔值的 True 和 False，在数值上也可以表示为 1 和 0。布尔值在运算中具有很重要的作用，但是在此不进行展开。</p>
+<h2 id="在应用中有哪些注意事项"><a href="#在应用中有哪些注意事项" class="headerlink" title="在应用中有哪些注意事项"></a>在应用中有哪些注意事项</h2><ol>
+<li>在设计表格的时候，提前考虑各个字段应该采用的数据类型。如：储存身份证号、学号、编号等数据，应该先把字段格式设置为文本。</li>
+<li>公式计算前，检查计算区域的单元格是否都是数值型。</li>
+<li>以文本形式储存的日期或数值，可以通过”分列“功能来进行规范，快捷键 alt d e f （依次）。</li>
+<li>想到再说。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>都看到这儿了，还不打赏一下？</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="高宇皓 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="高宇皓 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>高宇皓
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yuhaogao.com/2016/08/24/Excel%20%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="Excel 中的数据类型">https://yuhaogao.com/2016/08/24/Excel 中的数据类型/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="tag"># 数据类型</a>
+              <a href="/tags/Excel/" rel="tag"># Excel</a>
+              <a href="/tags/%E7%A7%91%E6%99%AE/" rel="tag"># 科普</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/08/22/BeautifulSoup%20%E5%92%8C%20json%20%E5%BA%93%E5%9C%A8%E7%88%AC%E8%99%AB%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" rel="prev" title="BeautifulSoup 和 json 库在爬虫项目中的应用">
+      <i class="fa fa-chevron-left"></i> BeautifulSoup 和 json 库在爬虫项目中的应用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/09/18/%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8E%20Hexo%20%E5%92%8C%20Git%20Pages%20%E7%9A%84%E4%B8%AA%E4%BA%BA%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/" rel="next" title="搭建基于 Hexo 和 Git Pages 的个人技术博客">
+      搭建基于 Hexo 和 Git Pages 的个人技术博客 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是数据类型"><span class="nav-number">2.</span> <span class="nav-text">什么是数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Excel-中有哪些数据类型"><span class="nav-number">3.</span> <span class="nav-text">Excel 中有哪些数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在应用中有哪些注意事项"><span class="nav-number">4.</span> <span class="nav-text">在应用中有哪些注意事项</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="高宇皓"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">高宇皓</p>
+  <div class="site-description" itemprop="description">流动性管理 | 财务数据分析 | 经济统计学</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cosmogao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cosmogao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:me@yuhaogao.com" title="E-Mail → mailto:me@yuhaogao.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/gaoyuhao" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;gaoyuhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-thumbs-up"></i>知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.jianshu.com/users/db4a516eefb7/latest_articles" title="简书 → http:&#x2F;&#x2F;www.jianshu.com&#x2F;users&#x2F;db4a516eefb7&#x2F;latest_articles" rel="noopener" target="_blank"><i class="fa fa-fw fa-book"></i>简书</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://tedxchangan.com/" title="https:&#x2F;&#x2F;tedxchangan.com" rel="noopener" target="_blank">TedxChangan</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">高宇皓</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
